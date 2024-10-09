@@ -16,7 +16,7 @@ class install_dependency(bpy.types.Operator):
     bl_options = {'REGISTER', 'UNDO'}
     
     def execute(self, context):
-        '''download the blender zip file from https://download.blender.org/release/Blender3.6/blender-3.6.9-windows-x64.zip, and unzip it to the dependencies directory'''
+        '''download the blender zip file from https://download.blender.org/release/Blender3.6/blender-3.6.9-linux-x64.tar.xz, and unzip it to the dependencies directory'''
         c.initialize_timer()
         #clear the dependencies folder
         c.toggle_console()
@@ -32,15 +32,15 @@ class install_dependency(bpy.types.Operator):
             pass
         
         #get the blender zip and unzip it to the dependencies folder
-        c.kklog('Downloading blender zip file from https://download.blender.org/release/Blender3.6/blender-3.6.9-windows-x64.zip. This could take five to twenty minutes depending on your network speed...')
-        zip_url = "https://download.blender.org/release/Blender3.6/blender-3.6.9-windows-x64.zip"
+        c.kklog('Downloading blender zip file from https://download.blender.org/release/Blender3.6/blender-3.6.9-linux-x64.tar.xz. This could take five to twenty minutes depending on your network speed...')
+        zip_url = "https://download.blender.org/release/Blender3.6/blender-3.6.9-linux-x64.tar.xz"
         r = requests.get(zip_url)
         z = zipfile.ZipFile(io.BytesIO(r.content))
         c.kklog('Extracting blender zip file...')
         z.extractall(os.path.join(os.path.dirname(__file__), 'dependencies'))
 
         c.kklog('Updating KKBP blender path...')
-        bpy.context.scene.kkbp.blender_path = os.path.join(os.path.dirname(__file__), 'dependencies', 'blender-3.6.9-windows-x64', 'blender.exe')
+        bpy.context.scene.kkbp.blender_path = os.path.join(os.path.dirname(__file__), 'dependencies', 'blender-3.6.9-linux-x64', 'blender')
         c.toggle_console()
         c.print_timer('Blender 3.6 installation')
         
